@@ -1,9 +1,9 @@
 extern crate specs;
 use super::{
     gamelog::GameLog, particle_system::ParticleBuilder, AreaOfEffect, CombatStats, Confusion,
-    Consumable, Equippable, Equipped, HungerClock, HungerState, InBackpack, InflictsDamage, Map,
-    Name, Position, ProvidesFood, ProvidesHealing, SufferDamage, WantsToDropItem,
-    WantsToPickupItem, WantsToRemoveItem, WantsToUseItem,
+    Consumable, Equippable, Equipped, HungerClock, HungerState, InBackpack, InflictsDamage,
+    MagicMapper, Map, Name, Position, ProvidesFood, ProvidesHealing, RunState, SufferDamage,
+    WantsToDropItem, WantsToPickupItem, WantsToRemoveItem, WantsToUseItem,
 };
 use specs::prelude::*;
 
@@ -54,7 +54,7 @@ impl<'a> System<'a> for ItemUseSystem {
     type SystemData = (
         ReadExpect<'a, Entity>,
         WriteExpect<'a, GameLog>,
-        ReadExpect<'a, Map>,
+        WriteExpect<'a, Map>,
         Entities<'a>,
         WriteStorage<'a, WantsToUseItem>,
         ReadStorage<'a, Name>,
@@ -72,6 +72,8 @@ impl<'a> System<'a> for ItemUseSystem {
         ReadStorage<'a, Position>,
         ReadStorage<'a, ProvidesFood>,
         WriteStorage<'a, HungerClock>,
+        ReadStorage<'a, MagicMapper>,
+        WriteExpect<'a, RunState>,
     );
 
     #[allow(clippy::cognitive_complexity)]
@@ -97,6 +99,8 @@ impl<'a> System<'a> for ItemUseSystem {
             positions,
             provides_food,
             mut hunger_clocks,
+            magic_mapper,
+            mut runstate,
         ) = data;
 
         for (entity, useitem) in (&entities, &wants_use).join() {
@@ -210,6 +214,19 @@ impl<'a> System<'a> for ItemUseSystem {
                             format!("You eat the {}.", names.get(useitem.item).unwrap().name),
                         );
                     }
+                }
+            }
+
+            // If its a magic mapper...
+            let is_mapper = magic_mapper.get(useitem.item);
+            match is_mapper {
+                None => {}
+                Some(_) => {
+                    used_item = true;
+                    gamelog
+                        .entries
+                        .insert(0, "The map is revealed to you!".to_string());
+                    *runstate = RunState::MagicMapReveal { row: 0 };
                 }
             }
 
