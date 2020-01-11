@@ -32,6 +32,7 @@ use inventory_system::{ItemCollectionSystem, ItemDropSystem, ItemRemoveSystem, I
 pub mod hunger_system;
 pub mod particle_system;
 pub mod random_table;
+pub mod rex_assets;
 pub mod saveload_system;
 
 rltk::add_wasm_support!();
@@ -502,6 +503,7 @@ fn main() {
         entries: vec!["Welcome to Rusty Roguelike".to_string()],
     });
     gs.ecs.insert(particle_system::ParticleBuilder::new());
+    gs.ecs.insert(rex_assets::RexAssets::new());
 
     rltk::main_loop(context, gs);
 }
