@@ -1,8 +1,7 @@
 use super::*;
 use crate::components::{ParticleAnimation, ParticleLifetime, Position, Renderable};
 use crate::map::Map;
-use crate::particle_system::ParticleBuilder;
-use rltk::{to_cp437, Point};
+use crate::systems::particle_system::ParticleBuilder;
 use specs::prelude::*;
 
 pub fn particle_to_tile(ecs: &mut World, tile_idx: i32, effect: &EffectSpawner) {
@@ -31,7 +30,7 @@ pub fn projectile(ecs: &mut World, tile_idx: i32, effect: &EffectSpawner) {
         glyph,
         fg,
         bg,
-        lifespan,
+        lifespan: _,
         speed,
         path,
     } = &effect.effect_type
