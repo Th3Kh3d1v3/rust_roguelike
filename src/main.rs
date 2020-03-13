@@ -171,6 +171,9 @@ impl GameState for State {
             newrunstate = *runstate;
         }
 
+        ctx.set_active_console(1);
+        ctx.cls();
+        ctx.set_active_console(0);
         ctx.cls();
         particle_system::update_particles(&mut self.ecs, ctx);
 
@@ -622,6 +625,8 @@ fn main() {
     use rltk::RltkBuilder;
     let mut context = RltkBuilder::simple(80, 60)
         .with_title("Roguelike Tutorial")
+        .with_font("vga8x16.png", 8, 16)
+        .with_sparse_console(80, 30, "vga8x16.png")
         .build();
     context.with_post_scanlines(true);
     let mut gs = State {
