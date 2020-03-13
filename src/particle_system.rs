@@ -1,4 +1,4 @@
-use super::{Map, ParticleLifetime, Position, Renderable, Rltk};
+use super::{ParticleLifetime, Position, Renderable, Rltk};
 use rltk::RGB;
 use specs::prelude::*;
 
@@ -8,7 +8,6 @@ pub fn update_particles(ecs: &mut World, ctx: &Rltk) {
         // Age out particles
         let mut particles = ecs.write_storage::<ParticleLifetime>();
         let entities = ecs.entities();
-        let map = ecs.fetch::<Map>();
         for (entity, mut particle) in (&entities, &mut particles).join() {
             if let Some(animation) = &mut particle.animation {
                 animation.timer += ctx.frame_time_ms;

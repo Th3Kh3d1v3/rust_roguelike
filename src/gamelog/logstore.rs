@@ -6,10 +6,6 @@ lazy_static! {
     static ref LOG: Mutex<Vec<Vec<LogFragment>>> = Mutex::new(Vec::new());
 }
 
-pub fn append_fragment(fragment: LogFragment) {
-    LOG.lock().unwrap().push(vec![fragment]);
-}
-
 pub fn append_entry(fragments: Vec<LogFragment>) {
     LOG.lock().unwrap().push(fragments);
 }

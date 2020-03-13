@@ -30,7 +30,6 @@ mod spawner;
 use inventory_system::{
     ItemCollectionSystem, ItemDropSystem, ItemRemoveSystem, ItemUseSystem, SpellUseSystem,
 };
-pub mod camera;
 mod gamesystem;
 pub mod hunger_system;
 pub mod map_builders;
@@ -560,6 +559,8 @@ impl GameState for State {
             *runwriter = newrunstate;
         }
         damage_system::delete_the_dead(&mut self.ecs);
+
+        rltk::render_draw_buffer(ctx);
     }
 }
 
