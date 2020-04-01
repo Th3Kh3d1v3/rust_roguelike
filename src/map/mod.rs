@@ -1,6 +1,4 @@
-extern crate rltk;
 use rltk::{Algorithm2D, BaseMap, Point};
-extern crate specs;
 use serde::{Deserialize, Serialize};
 use specs::prelude::*;
 use std::collections::HashSet;
