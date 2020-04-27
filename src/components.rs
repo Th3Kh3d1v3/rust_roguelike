@@ -27,7 +27,7 @@ pub struct OtherLevelPosition {
 
 #[derive(Component, ConvertSaveload, Clone)]
 pub struct Renderable {
-    pub glyph: u8,
+    pub glyph: rltk::FontCharType,
     pub fg: RGB,
     pub bg: RGB,
     pub render_order: i32,
@@ -440,14 +440,14 @@ pub struct ParticleLifetime {
 
 #[derive(Component, Serialize, Deserialize, Clone)]
 pub struct SpawnParticleLine {
-    pub glyph: u8,
+    pub glyph: rltk::FontCharType,
     pub color: RGB,
     pub lifetime_ms: f32,
 }
 
 #[derive(Component, Serialize, Deserialize, Clone)]
 pub struct SpawnParticleBurst {
-    pub glyph: u8,
+    pub glyph: rltk::FontCharType,
     pub color: RGB,
     pub lifetime_ms: f32,
 }

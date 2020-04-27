@@ -59,7 +59,7 @@ fn vendor_sell_menu(
         draw_batch.set(
             Point::new(18, y),
             ColorPair::new(RGB::named(rltk::YELLOW), RGB::named(rltk::BLACK)),
-            97 + j as u8,
+            97 + j as rltk::FontCharType,
         );
         draw_batch.set(
             Point::new(19, y),
@@ -147,7 +147,7 @@ fn vendor_buy_menu(
         draw_batch.set(
             Point::new(18, y),
             ColorPair::new(RGB::named(rltk::YELLOW), RGB::named(rltk::BLACK)),
-            97 + j as u8,
+            97 + j as rltk::FontCharType,
         );
         draw_batch.set(
             Point::new(19, y),

@@ -32,9 +32,9 @@ impl<'a> System<'a> for VisibilitySystem {
                 viewshed.dirty = false;
                 viewshed.visible_tiles =
                     field_of_view(Point::new(pos.x, pos.y), viewshed.range, &*map);
-                viewshed
-                    .visible_tiles
-                    .retain(|p| p.x > 0 && p.x < map.width - 1 && p.y > 0 && p.y < map.height - 1);
+                viewshed.visible_tiles.retain(|p| {
+                    p.x >= 0 && p.x < map.width - 1 && p.y >= 0 && p.y < map.height - 1
+                });
 
                 // If this is the player, reveal what they can see
                 let _p: Option<&Player> = player.get(ent);
@@ -50,21 +50,21 @@ impl<'a> System<'a> for VisibilitySystem {
                             map.visible_tiles[idx] = true;
 
                             // Chance to reveal hidden things
-                            for e in map.tile_content[idx].iter() {
-                                let maybe_hidden = hidden.get(*e);
+                            crate::spatial::for_each_tile_content(idx, |e| {
+                                let maybe_hidden = hidden.get(e);
                                 if let Some(_maybe_hidden) = maybe_hidden {
                                     if crate::rng::roll_dice(1, 24) == 1 {
-                                        let name = names.get(*e);
+                                        let name = names.get(e);
                                         if let Some(name) = name {
                                             crate::gamelog::Logger::new()
                                                 .append("You spotted:")
                                                 .npc_name(&name.name)
                                                 .log();
                                         }
-                                        hidden.remove(*e);
+                                        hidden.remove(e);
                                     }
                                 }
-                            }
+                            });
                         }
                     }
                 }

@@ -1,5 +1,5 @@
 extern crate serde;
-use rltk::{Console, GameState, Point, Rltk};
+use rltk::{GameState, Point, Rltk};
 use specs::prelude::*;
 use specs::saveload::{SimpleMarker, SimpleMarkerAllocator};
 
@@ -26,6 +26,7 @@ pub mod effects;
 #[macro_use]
 extern crate lazy_static;
 pub mod rng;
+pub mod spatial;
 mod systems;
 
 const SHOW_MAPGEN_VISUALIZER: bool = false;
@@ -555,14 +556,15 @@ impl State {
     }
 }
 
-fn main() {
+fn main() -> rltk::BError {
     use rltk::RltkBuilder;
     let mut context = RltkBuilder::simple(80, 60)
+        .unwrap()
         .with_title("Roguelike Tutorial")
         .with_font("vga8x16.png", 8, 16)
         .with_sparse_console(80, 30, "vga8x16.png")
         .with_vsync(false)
-        .build();
+        .build()?;
     context.with_post_scanlines(true);
     let mut gs = State {
         ecs: World::new(),
@@ -671,5 +673,5 @@ fn main() {
 
     gs.generate_world_map(1, 0);
 
-    rltk::main_loop(context, gs);
+    rltk::main_loop(context, gs)
 }
