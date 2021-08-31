@@ -1,2 +1,2 @@
-# Rusty Roguelike
+# Rust Roguelike
 Roguelike written in Rust
