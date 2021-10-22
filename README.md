@@ -1,2 +1,2 @@
-# Sword of Osman
+# Rust Roguelike
 Roguelike written in Rust
