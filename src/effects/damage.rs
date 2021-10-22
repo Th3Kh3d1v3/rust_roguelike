@@ -5,7 +5,7 @@ use crate::components::{
 };
 use crate::gamesystem::{mana_at_level, player_hp_at_level};
 use crate::map::Map;
-use specs::prelude::*;
+
 use specs::saveload::{MarkedBuilder, SimpleMarker};
 
 pub fn inflict_damage(ecs: &mut World, damage: &EffectSpawner, target: Entity) {
