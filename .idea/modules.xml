@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Sword of Osman.iml" filepath="$PROJECT_DIR$/.idea/Sword of Osman.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Rust Roguelike.iml" filepath="$PROJECT_DIR$/.idea/Rust Roguelike.iml" />
     </modules>
   </component>
 </project>

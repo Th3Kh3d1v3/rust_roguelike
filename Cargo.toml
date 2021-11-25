@@ -1,5 +1,5 @@
 [package]
-name = "sword_of_osman"
+name = "rust_roguelike"
 version = "0.1.0"
 authors = ["musaab"]
 edition = "2021"
