@@ -3,7 +3,6 @@ use crate::components::{ParticleAnimation, ParticleLifetime, Position, Renderabl
 use crate::map::Map;
 use crate::systems::particle_system::ParticleBuilder;
 
-
 pub fn particle_to_tile(ecs: &mut World, tile_idx: i32, effect: &EffectSpawner) {
     if let EffectType::Particle {
         glyph,
