@@ -1,8 +1,6 @@
-use crate::{
-    AreaOfEffect, CursedItem, EquipmentChanged, Equippable, Equipped, IdentifiedItem, InBackpack,
-    Item, MagicItem, Map, MasterDungeonMap, Name, ObfuscatedName, Position, WantsToCastSpell,
-    WantsToDropItem, WantsToPickupItem, WantsToRemoveItem, WantsToUseItem,
-};
+use crate::{WantsToPickupItem, Name, InBackpack, Position, WantsToUseItem,
+    WantsToDropItem, Map, AreaOfEffect, Equippable, Equipped, WantsToRemoveItem, EquipmentChanged,
+    IdentifiedItem, Item, ObfuscatedName, MagicItem, MasterDungeonMap, CursedItem, WantsToCastSpell };
 
 mod collection_system;
 pub use collection_system::ItemCollectionSystem;
@@ -19,12 +17,13 @@ pub use equip_use::ItemEquipOnUse;
 use specs::prelude::*;
 
 pub fn obfuscate_name(
-    item: Entity,
-    names: &ReadStorage<Name>,
-    magic_items: &ReadStorage<MagicItem>,
-    obfuscated_names: &ReadStorage<ObfuscatedName>,
-    dm: &MasterDungeonMap,
-) -> String {
+    item: Entity, 
+    names: &ReadStorage::<Name>, 
+    magic_items : &ReadStorage::<MagicItem>,
+    obfuscated_names : &ReadStorage::<ObfuscatedName>,
+    dm : &MasterDungeonMap,
+) -> String 
+{
     if let Some(name) = names.get(item) {
         if magic_items.get(item).is_some() {
             if dm.identified_items.contains(&name.name) {
@@ -37,6 +36,7 @@ pub fn obfuscate_name(
         } else {
             name.name.clone()
         }
+
     } else {
         "Nameless item (bug)".to_string()
     }
